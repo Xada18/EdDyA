@@ -142,10 +142,60 @@ class ListaSecuencial:
     def __init__(self, dim):
         self.__dimension=dim
         self.__cantidad=0
-        self.__arreglo=np.empty(dim, dtype=int)
+        self.__arreglo=np.empty(dim, dtype=any)
 
     def vacia(self):
-        return self.__cantidad==0          
+        return self.__cantidad==0
+    def llena(self):
+        return self.__cantidad==self.__dimension        
         
-    def insertar(self):
+    def insertar(self, elemento):
+        if not self.llena():
+            self.__arreglo[self.__cantidad]=elemento
+
+    def suprimir(self, pos):
+
+        aux=self.__arreglo[pos-1]
+        while self.__arreglo[pos]:
+            self.__arreglo[pos-1]=self.__arreglo[pos]
+            pos+=1
+        del aux
+        self.__cantidad-=1
+
+    def recuperar(self, pos):
+        return self.__arreglo[pos-1]
+    
+    def siguiente_elemento(self, pos):
+        return self.__arreglo[pos]
+    
+    def anterior_elemento(self, pos):
+        return self.__arreglo[pos-2]
+    
+    def primer_elemento(self):
+        if self.vacia():
+            print("Lista vacia")
+            return None
+        else:
+            return self.__arreglo[0]
         
+    def ultimo_elemento(self):
+        if self.vacia():
+            print("Lista vacia")
+            return None
+        else:
+            return self.__arreglo[self.__cantidad]
+        
+    def buscar(self, dato):
+        elem=None
+        i=0
+        while i < self.__cantidad and elem==None:
+            if self.__arreglo[i]==dato:
+                print("Elemento encontrado")
+            else:
+                i+=1
+    
+    def recorrer(self):
+        for i in range(self.__cantidad):
+            print(self.__arreglo[i])
+    
+    
